@@ -200,14 +200,22 @@ void AOrpheeCharacter::Look(const FInputActionValue& InputValue)
 
 FString AOrpheeCharacter::DetectKeyboardType()
 {
+	FString Keyboard;
 	switch(PRIMARYLANGID(LOWORD(GetKeyboardLayout(0))))
 	{
 	case LANG_FRENCH:
-		return "AZERTY";
+		Keyboard= "AZERTY";
+		if(SUBLANGID(LOWORD(GetKeyboardLayout(0)))==SUBLANG_FRENCH_CANADIAN) 
+			Keyboard="QWERTY";
+		break;
 	case LANG_ENGLISH:
-		return "QWERTY";
+		Keyboard= "QWERTY";
+		break;
 	default:
-		return "unknown";
+		Keyboard= "unknown";
+		break;
 	}
+
+	return Keyboard;
 }
 
